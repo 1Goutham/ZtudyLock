@@ -143,12 +143,14 @@ export default function Page() {
             <div ref={messagesStartRef} />
           </div>
           <div className="lg:mt-3">
-            <InputBox
-              input={input}
-              setInput={setInput}
-              sendMessage={sendMessage}
-              handleKeyDown={handleKeyDown}
-            />
+            <div className="mt-3 w-full max-w-full overflow-hidden">
+              <InputBox
+                input={input}
+                setInput={setInput}
+                sendMessage={sendMessage}
+                handleKeyDown={handleKeyDown}
+              />
+            </div>
           </div>
         </div>
       </section>
