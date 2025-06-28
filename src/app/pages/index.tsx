@@ -104,7 +104,7 @@ export default function Page() {
           className="w-[95vw] max-w-[900px] h-[540px] lg:h-[600px] md:h-[600px] mt-0 mx-auto 
                     bg-[radial-gradient(circle,rgba(255,255,255,0.18)_0%,rgba(255,255,255,0)_100%)] 
                     shadow-[inset_-5px_-5px_250px_rgba(255,255,255,0.03)] 
-                    backdrop-blur-[15px] rounded-[10px] p-10 
+                    backdrop-blur-[15px] rounded-[10px] p-3 md:p-10
                     border border-[rgba(255,255,255,0.5)] 
                     flex flex-col justify-between"
         >
