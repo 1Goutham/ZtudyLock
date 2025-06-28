@@ -94,7 +94,7 @@ export default function Page() {
 
   return (
     <main
-      className="min-h-screen w-full bg-cover bg-center bg-no-repeat"
+      className="min-h-screen w-full max-w-full overflow-x-hidden bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/assets/websitebg.jpg')" }}
     >
       <Header />
