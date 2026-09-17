@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ZtudyLock
 
-## Getting Started
+**An AI study workspace that helps you actually learn.** Upload your material; ZtudyLock understands
+it, teaches you from it, tests you, finds what's weak and adapts what you study next.
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+Upload → Understand → Learn → Practise → Test → Identify weakness → Revise → Master
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A product by [1Goutham](https://1goutham.space). Product and design notes live in
+[`docs/PRODUCT.md`](docs/PRODUCT.md).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## What it does
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Area | What happens |
+| --- | --- |
+| `/` | Editorial landing. |
+| `/onboarding` | Four progressive questions: what you study, what for, when, your material. |
+| `/home` | Greeting, today's plan (derived from what's weak, due and next), currently learning, needs attention. |
+| `/library` | Subjects → documents, extracted concepts grouped by chapter, progress, weak areas. Upload PDFs, text, photographed pages, or paste notes. |
+| `/learn` | Concept pages with summary, definition, related concepts, source passages and a tutor grounded in your material. Without a concept: *Ask your material*. |
+| `/practice` | Quiz, spaced-repetition flashcards, revision pass for weak concepts, mock tests, exam mode from past papers. |
+| `/progress` | Mastery per subject and concept, strengths, what needs a pass, 14-day history, streak. |
+| `/settings` | Profile, AI engine status, export / reset. |
 
-## Learn More
+### The adaptive core
 
-To learn more about Next.js, take a look at the following resources:
+- **Mastery** is computed from real attempts with recency weighting (`src/lib/learning/mastery.ts`).
+- **Weakness detection** flags a concept after low scores or consecutive misses and surfaces it on Home.
+- **Revision pass**: simple explanation → worked example → five targeted questions → reassessment.
+- **Flashcards** use SM-2 (`Again / Hard / Good / Easy`); Home shows what's due.
+- **Today's plan** is built from state (`src/lib/learning/plan.ts`), not a template.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Getting started
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm install
+cp .env.example .env.local   # add a free GEMINI_API_KEY
+npm run dev
+```
 
-## Deploy on Vercel
+Without a key the app runs; reading material, the tutor and practice show a clear "not connected" state
+with the free signup link (Settings → AI engine).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Architecture
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/
+    api/{understand,tutor,practice,flashcards,exam,transcribe,engine}   server routes
+    (workspace)/{home,library,learn,practice,progress,settings}          app pages, shared AppShell
+    onboarding/  page.tsx (landing)
+  components/   ui/ (Button, Chip, Field, Meter, Sheet, …), app/, home/, library/, learn/, practice/, progress/, settings/
+  lib/
+    types.ts            domain model (Profile, Subject, StudyDocument, Concept, Attempt, Flashcard, …)
+    learning/           chunking, BM25 retrieval, mastery, SM-2 scheduler, daily plan
+    documents/          pdf.js + text extraction (browser)
+    ai/                 contracts, engine + providers (server), prompts (server), route helpers, client (browser)
+    hooks/              useUnderstand (the upload → concepts pipeline), usePractice, useSessionTimer
+    storage/            StudyRepository interface + LocalRepository (localStorage)
+    store/              WorkspaceProvider: hydrated state + typed actions
+```
+
+**Cost awareness.** PDFs are parsed in the browser with pdf.js and chunked. Concept extraction sends
+six chunks per request (capped and sampled for very long documents). Tutor, quiz and flashcard
+requests carry a compact *learning brief* plus the top passages from a lexical retriever, never whole
+documents. Generated questions and cards are cached and reused before the model is asked again.
+
+**AI engine.** Providers are pluggable (Gemini first; Groq / OpenRouter / any OpenAI-compatible
+endpoint as fallback). Model IDs are resolved from the API so retired names never break the product.
+Per-IP rate limiting, typed `{ ok, data | error }` envelopes, JSON mode with tolerant parsing.
+
+**Persistence.** Everything goes through `StudyRepository`. Today that is browser storage. A Supabase
+implementation (auth + tables mirroring `types.ts`) slots in behind the same interface.
+
+## What remains
+
+- Accounts and sync (the repository interface is the seam).
+- Photographed notes are transcribed one image at a time via Gemini; large scans are rejected.
+- Exam analysis is text-based; scanned papers need transcription first.
+- Streaming tutor replies.
+
+## Scripts
+
+```bash
+npm run dev      # development server
+npm run build    # production build
+npm run start    # serve the build
+npm run lint     # eslint
+```
