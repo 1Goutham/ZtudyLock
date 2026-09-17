@@ -43,7 +43,7 @@ export function PracticeHub() {
     <div>
       <PageHeader index="Practice" title="Test what you know." description="Every answer feeds your mastery. Weak areas get spotted and get their own pass." />
 
-      <div className="grid gap-14 md:grid-cols-12 md:gap-x-12">
+      <div className="grid grid-cols-1 gap-14 md:grid-cols-12 md:gap-x-12">
         <div className="md:col-span-7">
           <ul className="border-t border-line">
             {modes.map((m, i) => (
@@ -62,7 +62,7 @@ export function PracticeHub() {
         </div>
 
         <aside className="md:col-span-5">
-          <Section label="Practise on" aside={chosen ? `${conceptMastery(chosen.id, attempts).score ?? "—"}${conceptMastery(chosen.id, attempts).score !== null ? "%" : ""}` : ""}>
+          <Section className="glass-panel p-6" label="Practise on" aside={chosen ? `${conceptMastery(chosen.id, attempts).score ?? "—"}${conceptMastery(chosen.id, attempts).score !== null ? "%" : ""}` : ""}>
             {subjects.length > 1 && (
               <ChipGroup className="mb-5">
                 {subjects.map((s) => (

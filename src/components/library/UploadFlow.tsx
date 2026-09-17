@@ -91,9 +91,9 @@ export function UploadFlow({ subjectId, onDone, onCancel, compact }: { subjectId
         onDragLeave={() => setDragging(false)}
         onDrop={(e) => { e.preventDefault(); setDragging(false); accept(e.dataTransfer.files); }}
         className={cx(
-          "group flex cursor-pointer flex-col items-center justify-center rounded-[20px] border border-dashed px-6 text-center transition-colors",
+          "glass-panel group flex cursor-pointer flex-col items-center justify-center border-dashed px-6 text-center transition-colors",
           compact ? "py-10" : "py-14",
-          dragging ? "border-ink bg-white/6" : "border-line-2 hover:border-ink-3 hover:bg-white/3",
+          dragging ? "border-ink" : "hover:border-white/25",
         )}
       >
         <IconUpload size={20} className="text-ink-3 transition-colors group-hover:text-ink" />

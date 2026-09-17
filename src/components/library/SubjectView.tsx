@@ -90,7 +90,7 @@ export function SubjectView({ subjectId }: { subjectId: string }) {
           action={<Button variant="primary" onClick={() => setUpload(true)}>Upload material</Button>}
         />
       ) : (
-        <div className="grid gap-14 md:grid-cols-12 md:gap-x-12">
+        <div className="grid grid-cols-1 gap-14 md:grid-cols-12 md:gap-x-12">
           <div className="flex flex-col gap-14 md:col-span-8">
             {/* Concepts */}
             <Section label="Learning map" aside={`${plural(cons.length, "concept")}`}>
@@ -149,7 +149,7 @@ export function SubjectView({ subjectId }: { subjectId: string }) {
           </div>
 
           <aside className="flex flex-col gap-12 md:col-span-4">
-            <Section label="Progress">
+            <Section label="Progress" className="glass-panel p-6">
               <p className="display text-[44px] text-ink">{mastery.score === null ? "—" : `${mastery.score}%`}</p>
               <Meter value={mastery.score} tone={mastery.score !== null && mastery.score < 50 ? "warn" : "accent"} className="mt-3" label="Subject mastery" />
               <p className="mt-3 text-[13px] text-ink-3">{mastery.score === null ? "Nothing tested yet. Learn a concept, then take a quiz." : `${mastery.tested} of ${mastery.total} concepts tested.`}</p>

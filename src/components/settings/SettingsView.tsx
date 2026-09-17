@@ -50,7 +50,7 @@ export function SettingsView() {
       <PageHeader index="Settings" title="You and your engine." description="Your profile shapes how the tutor pitches things. The engine is where the thinking happens." />
 
       <Section label="Profile" className="mb-14">
-        <div className="grid gap-8 md:max-w-2xl md:grid-cols-2 md:gap-x-10">
+        <div className="grid grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 md:gap-x-10">
           <Field label="Name">{(id) => <Input id={id} value={name} onChange={(e) => setName(e.target.value)} />}</Field>
           <Field label="Studying">{(id) => <Input id={id} value={studying} onChange={(e) => setStudying(e.target.value)} />}</Field>
           <Field label="Preparing for">{(id) => <Input id={id} value={goal} onChange={(e) => setGoal(e.target.value)} />}</Field>
@@ -70,7 +70,7 @@ export function SettingsView() {
         </div>
       </Section>
 
-      <Section label="AI engine" className="mb-14" aside={engine && engine !== "error" ? `${engine.active.length} active` : ""}>
+      <Section label="AI engine" className="glass-panel mb-14 p-6 md:p-7" aside={engine && engine !== "error" ? `${engine.active.length} active` : ""}>
         {engine === null ? (
           <div className="h-12 w-64 rounded animate-shimmer" />
         ) : engine === "error" ? (

@@ -23,7 +23,7 @@ const base = "press inline-flex items-center justify-center gap-2 whitespace-now
 
 const variants: Record<Variant, string> = {
   primary: "bg-ink text-[#050505] hover:bg-white",
-  secondary: "glass text-ink hover:border-white/20",
+  secondary: "glass glass-hover text-ink",
   ghost: "bg-transparent text-ink-2 hover:text-ink hover:bg-white/6",
   danger: "bg-transparent text-danger hover:bg-danger/10",
   accent: "bg-accent text-[#050505] hover:brightness-105",

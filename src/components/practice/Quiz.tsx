@@ -192,8 +192,8 @@ export function Quiz({ concepts, mode, count, title, exitHref = "/practice", tar
                       disabled={phase !== "asking"}
                       onClick={() => answer(i)}
                       className={cx(
-                        "press flex w-full items-start gap-4 rounded-[16px] border px-4 py-3.5 text-left transition-colors",
-                        phase === "asking" && "border-line hover:border-line-2 hover:bg-white/4",
+                        "press glass glass-hover flex w-full items-start gap-4 rounded-[18px] px-4 py-3.5 text-left",
+                        phase === "asking" && "hover:text-ink",
                         reveal && isAnswer && "border-accent/60 bg-accent/8",
                         reveal && isPicked && !isAnswer && "border-danger/50 bg-danger/8",
                         reveal && !isPicked && !isAnswer && "border-line opacity-50",
@@ -210,7 +210,7 @@ export function Quiz({ concepts, mode, count, title, exitHref = "/practice", tar
 
             <AnimatePresence>
               {phase === "answered" && (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} className="mt-10 border-t border-line pt-6">
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} className="glass-panel mt-8 p-6 md:p-7">
                   {showExplanation ? (
                     <>
                       <p className={cx("display text-[24px]", correct ? "text-ink" : "text-ink")}>{correct ? "Correct." : "Not quite."}</p>

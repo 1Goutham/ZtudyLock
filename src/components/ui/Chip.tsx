@@ -16,7 +16,7 @@ export function Chip({ selected, size = "md", checkable, className, children, ..
       className={cx(
         "press inline-flex items-center gap-2 rounded-full border font-normal select-none disabled:opacity-40",
         size === "sm" ? "h-8 px-3.5 text-[13px]" : "h-9 px-4 text-[14px]",
-        selected ? "border-ink bg-ink text-[#050505]" : "border-line-2 bg-transparent text-ink-2 hover:border-ink hover:text-ink",
+        selected ? "border-ink bg-ink text-[#050505] shadow-[0_10px_24px_-14px_rgb(255_255_255/0.35)]" : "glass glass-hover text-ink-2 hover:text-ink",
         className,
       )}
       {...rest}

@@ -54,10 +54,14 @@ Mobile: glass bottom navigation, full-screen learning modes, swipeable flashcard
 
 Dark, cinematic, calm. Apple product page × visionOS material × Ideako's editorial restraint.
 
-- **Base:** `#050505` with a barely-there ambient layer (two soft radial lights, no colour).
-- **Material stack:** background → ambient → glass navigation → primary surface → secondary surface
-  → floating interaction. Glass is translucent + blurred with a 1px inner highlight, never a bright
-  outline. Most of the page is typography + spacing on the bare background; surfaces are earned.
+- **Base:** `#050505` under an ambient layer the glass can refract: two soft white lights and two
+  muted blooms (a cool slate, a warm sand) far too desaturated to read as colour, plus a whisper of grain.
+- **Material stack:** background → ambient → floating glass navigation (a pill that blurs whatever
+  scrolls under it) → glass panels (translucent, 36px blur, 190% saturation, specular top light, lit
+  top edge, soft drop shadow) → interactive glass (chips, secondary buttons, quiz options) → floating
+  glass (composer, sheets, the mobile navigation) → the flashcard, the thickest glass in the system.
+  Glass is a material, not decoration: most of the page is still typography and hairlines on the
+  bare background, and panels are used where content needs to be held.
 - **Type:** Apple system stack first (`-apple-system`, SF Pro), Inter as the fallback; Anonymous Pro
   for small uppercase metadata labels (carried from Ideako). Large display headlines with tight
   tracking; quiet secondary text in grey.
