@@ -99,7 +99,7 @@ export function Onboarding() {
       <main className="mx-auto w-full max-w-[1200px] flex-1 px-5 py-12 md:px-10 md:py-20">
         {step === 0 && (
           <StepFrame key="you" eyebrow="Let's begin" title={<>What are you<br />studying?</>} description="ZtudyLock sets up a personal learning system around this. You can change any of it later.">
-            <div className="grid gap-8">
+            <div className="grid grid-cols-1 gap-8">
               <Field label="Your name" error={errors.name}>{(id) => <Input id={id} autoFocus value={name} onChange={(e) => setName(e.target.value)} autoComplete="given-name" placeholder="Goutham" />}</Field>
               <Field label="What you're studying" error={errors.studying} hint="A course, a year, a field. This shapes how the tutor pitches explanations.">
                 {(id) => <Input id={id} value={studying} onChange={(e) => setStudying(e.target.value)} placeholder="B.Tech Computer Science, 3rd year" onKeyDown={(e) => e.key === "Enter" && next()} />}
@@ -127,7 +127,7 @@ export function Onboarding() {
 
         {step === 2 && (
           <StepFrame key="time" eyebrow="Your time" title={<>When is<br />your exam?</>} description="Optional. With a date, Home shows what's realistic each day. Without one, ZtudyLock paces you by the minutes you choose.">
-            <div className="grid gap-10">
+            <div className="grid grid-cols-1 gap-10">
               <Field label="Exam date" optional hint={days !== null ? (days >= 0 ? `${plural(days, "day")} from today.` : "That date has passed.") : undefined}>
                 {(id) => <Input id={id} type="date" value={examDate} onChange={(e) => setExamDate(e.target.value)} className="max-w-xs" />}
               </Field>
@@ -180,7 +180,7 @@ export function Onboarding() {
 
         {step === 4 && (
           <StepFrame key="ready" eyebrow="All set" title={<>You&apos;re<br />ready{name ? `, ${firstName(name)}` : ""}.</>} description="Your workspace is set up. Home shows what to do today; Library holds your material; Learn, Practice and Progress do the rest.">
-            <ul className="border-t border-line">
+            <ul className="glass-panel px-6 py-2">
               {[
                 ["Studying", studying],
                 ["Preparing for", goal],
@@ -188,7 +188,7 @@ export function Onboarding() {
                 ["Daily", `${minutes} minutes`],
                 ["Material", concepts.length ? `${plural(concepts.length, "concept")} across ${plural(subjects.length, "subject")}` : "Nothing yet · add it in Library"],
               ].map(([k, v]) => (
-                <li key={k} className="flex items-baseline justify-between gap-6 border-b border-line py-3.5 text-[14.5px]">
+                <li key={k} className="flex items-baseline justify-between gap-6 border-b border-line py-3.5 text-[14.5px] last:border-b-0">
                   <span className="text-ink-3">{k}</span>
                   <span className="text-right text-ink">{v}</span>
                 </li>
@@ -206,7 +206,7 @@ export function Onboarding() {
 
 function StepFrame({ eyebrow, title, description, children }: { eyebrow: string; title: React.ReactNode; description: string; children: React.ReactNode }) {
   return (
-    <div className="grid gap-10 md:grid-cols-12 md:gap-x-10">
+    <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-x-10">
       <div className="md:col-span-5">
         <p className="label mb-4 animate-rise">{eyebrow}</p>
         <h1 className="display animate-rise text-[40px] text-ink sm:text-[52px] md:text-[64px]" style={{ "--i": 1 } as React.CSSProperties}>{title}</h1>

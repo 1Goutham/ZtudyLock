@@ -173,7 +173,9 @@ export function Flashcards({ concept, dueOnly }: { concept: Concept | null; dueO
     <div>
       <FocusBar title={title} meta={`${i + 1} / ${queue.length}`} progress={(i / queue.length) * 100} />
       <div className="mx-auto flex max-w-xl flex-col items-center">
-        <div className="relative h-[360px] w-full sm:h-[400px]" style={{ perspective: 1400 }}>
+        <div className="relative h-[360px] w-full overflow-x-clip sm:h-[400px]" style={{ perspective: 1400 }}>
+          <div className="light-orb -left-16 -top-20 size-72" aria-hidden="true" />
+          <div className="light-orb -bottom-24 -right-10 size-64 opacity-60" aria-hidden="true" />
           <AnimatePresence mode="popLayout">
             <Card key={`${card.id}-${i}`} card={card} flipped={flipped} onFlip={() => setFlipped((f) => !f)} onSwipe={(dir) => flipped && rate(dir === "left" ? "again" : "good")} subtitle={!concept ? conceptName(card.conceptId) : undefined} />
           </AnimatePresence>

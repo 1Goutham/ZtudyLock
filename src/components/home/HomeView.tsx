@@ -28,7 +28,7 @@ export function HomeView() {
   return (
     <div>
       {/* Greeting */}
-      <section className="grid gap-8 pb-14 md:grid-cols-12 md:pb-20">
+      <section className="grid grid-cols-1 gap-8 pb-14 md:grid-cols-12 md:pb-20">
         <div className="md:col-span-8">
           <p className="label animate-rise">
             {new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" })}
@@ -63,16 +63,23 @@ export function HomeView() {
       </section>
 
       {concepts.length > 0 && (
-        <div className="grid gap-14 md:grid-cols-12 md:gap-x-12">
+        <div className="grid grid-cols-1 gap-14 md:grid-cols-12 md:gap-x-12">
           <div className="flex flex-col gap-14 md:col-span-7">
             {current && (
-              <Section label="Currently learning" className="animate-rise" aside={<Link href={`/library/${current.subjectId}`} className="link-underline hover:text-ink">{subjectOf(current.subjectId)}</Link>}>
-                <Link href={`/learn/${current.id}`} className="group block">
-                  <p className="text-[13.5px] text-ink-3">{subjectOf(current.subjectId)}</p>
-                  <p className="display mt-1 text-[30px] text-ink md:text-[40px]">{current.name}</p>
+              <div className="relative animate-rise">
+                <div className="light-orb -left-10 -top-16 size-64" aria-hidden="true" />
+                <Link href={`/learn/${current.id}`} className="glass-panel glass-hover group relative block p-6 md:p-8">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <p className="label">Currently learning</p>
+                    <p className="mono text-[11px] text-ink-4">{subjectOf(current.subjectId)}</p>
+                  </div>
+                  <p className="display mt-6 text-[30px] text-ink md:text-[40px]">{current.name}</p>
                   <MasteryLine conceptId={current.id} />
+                  <p className="mt-6 flex items-center gap-2 text-[13.5px] text-ink-3 transition-colors group-hover:text-ink">
+                    Continue <IconArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </p>
                 </Link>
-              </Section>
+              </div>
             )}
 
             {weak.length > 0 && (
@@ -95,7 +102,7 @@ export function HomeView() {
           </div>
 
           <aside className="md:col-span-5">
-            <Section label="Today" className="animate-rise" aside={`${done} / ${planned} min`}>
+            <Section label="Today" className="glass-panel animate-rise p-6 md:p-7" aside={`${done} / ${planned} min`}>
               {plan.length === 0 ? (
                 <p className="text-[14px] text-ink-3">Nothing to plan yet.</p>
               ) : (

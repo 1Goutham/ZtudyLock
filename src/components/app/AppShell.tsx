@@ -40,24 +40,22 @@ function Shell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-dvh flex-col">
-      <header className={cx("sticky top-0 z-30 transition-[transform,opacity] duration-500 ease-[var(--ease-out-expo)]", hidden && "-translate-y-full opacity-0 pointer-events-none")}>
-        <div className="glass-nav">
-          <div className="mx-auto flex h-[60px] max-w-[1200px] items-center justify-between px-5 md:px-10">
-            <Logo href="/home" />
-            <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
-              {NAV.map(({ href, label }) => {
-                const active = isActive(href);
-                return (
-                  <Link key={href} href={href} aria-current={active ? "page" : undefined} className={cx("link-underline text-[13.5px] transition-colors", active ? "text-ink after:scale-x-100" : "text-ink-3 hover:text-ink")}>
-                    {label}
-                  </Link>
-                );
-              })}
-            </nav>
-            <Link href="/settings" className="mono flex size-8 items-center justify-center rounded-full border border-line-2 text-[11px] text-ink transition-colors hover:border-ink" aria-label="Settings" title={profile?.name}>
-              {ready ? initial : "·"}
-            </Link>
-          </div>
+      <header className={cx("sticky top-0 z-30 px-3 pt-3 transition-[transform,opacity] duration-500 ease-[var(--ease-out-expo)] md:px-6 md:pt-4", hidden && "-translate-y-[120%] opacity-0 pointer-events-none")}>
+        <div className="glass-float relative mx-auto flex h-14 max-w-[1100px] items-center justify-between rounded-full pl-5 pr-2">
+          <Logo href="/home" />
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex" aria-label="Primary">
+            {NAV.map(({ href, label }) => {
+              const active = isActive(href);
+              return (
+                <Link key={href} href={href} aria-current={active ? "page" : undefined} className={cx("press rounded-full px-4 py-1.5 text-[13.5px] transition-colors", active ? "bg-white/10 text-ink shadow-[inset_0_1px_0_rgb(255_255_255/0.12)]" : "text-ink-3 hover:bg-white/6 hover:text-ink")}>
+                  {label}
+                </Link>
+              );
+            })}
+          </nav>
+          <Link href="/settings" className="glass glass-hover mono flex size-10 items-center justify-center rounded-full text-[11px] text-ink" aria-label="Settings" title={profile?.name}>
+            {ready ? initial : "·"}
+          </Link>
         </div>
       </header>
 

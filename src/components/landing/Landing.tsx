@@ -30,21 +30,23 @@ export function Landing() {
 
   return (
     <div className="min-h-dvh">
-      <header className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-5 md:px-10">
-        <Logo />
-        <nav className="hidden items-center gap-8 text-[13.5px] md:flex" aria-label="Landing">
-          <a href="#what" className="link-underline text-ink-3 hover:text-ink">What it does</a>
-          <a href="#how" className="link-underline text-ink-3 hover:text-ink">How it works</a>
-          <a href={AUTHOR.site} target="_blank" rel="noreferrer" className="link-underline text-ink-3 hover:text-ink">By {AUTHOR.handle}</a>
-        </nav>
-        <LinkButton href={start} variant="primary" size="sm">
-          {onboarded ? "Open workspace" : "Get started"} <IconArrowUpRight size={14} />
-        </LinkButton>
+      <header className="sticky top-0 z-30 px-3 pt-3 md:px-6 md:pt-4">
+        <div className="glass-float mx-auto flex h-14 max-w-[1100px] items-center justify-between rounded-full pl-5 pr-2">
+          <Logo />
+          <nav className="hidden items-center gap-1 text-[13.5px] md:flex" aria-label="Landing">
+            <a href="#what" className="press rounded-full px-4 py-1.5 text-ink-3 hover:bg-white/6 hover:text-ink">What it does</a>
+            <a href="#how" className="press rounded-full px-4 py-1.5 text-ink-3 hover:bg-white/6 hover:text-ink">How it works</a>
+            <a href={AUTHOR.site} target="_blank" rel="noreferrer" className="press rounded-full px-4 py-1.5 text-ink-3 hover:bg-white/6 hover:text-ink">By {AUTHOR.handle}</a>
+          </nav>
+          <LinkButton href={start} variant="primary" size="sm" className="h-10">
+            {onboarded ? "Open workspace" : "Get started"} <IconArrowUpRight size={14} />
+          </LinkButton>
+        </div>
       </header>
 
       <main className="mx-auto max-w-[1200px] px-5 md:px-10">
         {/* Hero */}
-        <section className="grid gap-10 pb-20 pt-14 md:grid-cols-12 md:pb-28 md:pt-24">
+        <section className="grid grid-cols-1 gap-10 pb-20 pt-14 md:grid-cols-12 md:pb-28 md:pt-24">
           <div className="md:col-span-10">
             <p className="label animate-rise mb-8">
               An AI study workspace · <a href={AUTHOR.site} target="_blank" rel="noreferrer" className="link-underline text-ink-2">A product by {AUTHOR.handle}</a>
@@ -84,9 +86,11 @@ export function Landing() {
         </section>
 
         {/* Product glimpse: typography-only mock of the Home screen. */}
-        <section className="pb-20 md:pb-28" aria-label="Preview">
-          <div className="surface animate-scale-in overflow-hidden">
-            <div className="grid gap-10 p-6 md:grid-cols-12 md:p-12">
+        <section className="relative pb-20 md:pb-28" aria-label="Preview">
+          <div className="light-orb -top-24 left-[8%] size-[420px]" aria-hidden="true" />
+          <div className="light-orb -bottom-20 right-[5%] size-[360px] opacity-70" aria-hidden="true" />
+          <div className="glass-panel animate-scale-in relative overflow-hidden">
+            <div className="grid grid-cols-1 gap-10 p-6 md:grid-cols-12 md:p-12">
               <div className="md:col-span-5">
                 <p className="label">Home · Tonight</p>
                 <p className="display mt-4 text-[32px] text-ink md:text-[44px]">Good evening.</p>
@@ -137,7 +141,7 @@ export function Landing() {
         <section id="what" className="scroll-mt-20 border-t border-line py-16 md:py-24">
           <h2 className="display text-[34px] text-ink md:text-[48px]">Not another chatbot.</h2>
           <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-ink-3">Chat is one tool inside a learning system. The system is the product.</p>
-          <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-0">
+          <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-0">
             {PILLARS.map((h) => (
               <div key={h.n} className="md:border-l md:border-line md:px-8 first:md:border-l-0 first:md:pl-0">
                 <p className="display text-[44px] text-ink/15">{h.n}</p>
@@ -149,7 +153,7 @@ export function Landing() {
         </section>
 
         {/* How it works */}
-        <section id="how" className="scroll-mt-20 grid gap-10 border-t border-line py-16 md:grid-cols-12 md:py-24">
+        <section id="how" className="scroll-mt-20 grid grid-cols-1 gap-10 border-t border-line py-16 md:grid-cols-12 md:py-24">
           <div className="md:col-span-5">
             <h2 className="display text-[34px] text-ink md:text-[48px]">
               From a PDF
@@ -185,7 +189,7 @@ export function Landing() {
         </section>
 
         {/* Closing */}
-        <section className="grid gap-8 border-t border-line py-20 md:grid-cols-12 md:items-end md:py-28">
+        <section className="grid grid-cols-1 gap-8 border-t border-line py-20 md:grid-cols-12 md:items-end md:py-28">
           <h2 className="display text-[40px] text-ink sm:text-[56px] md:col-span-9 md:text-[72px]">
             Ready when
             <br />

@@ -78,7 +78,7 @@ export function ProgressView() {
         </ChipGroup>
       )}
 
-      <div className="grid gap-14 md:grid-cols-12 md:gap-x-12">
+      <div className="grid grid-cols-1 gap-14 md:grid-cols-12 md:gap-x-12">
         <div className="md:col-span-7">
           {subject && sm && (
             <>
@@ -109,7 +109,7 @@ export function ProgressView() {
         </div>
 
         <aside className="flex flex-col gap-12 md:col-span-5">
-          <Section label="Last 14 days" aside={`${plural(minutesToday(sessions), "min")} today`}>
+          <Section label="Last 14 days" className="glass-panel p-6" aside={`${plural(minutesToday(sessions), "min")} today`}>
             <div className="flex h-24 items-end gap-1.5" role="img" aria-label="Minutes studied per day over the last two weeks">
               {history.map((h) => (
                 <div key={h.key} className="flex flex-1 flex-col items-center gap-1.5" title={`${h.minutes} min`}>

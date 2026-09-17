@@ -55,7 +55,7 @@ export function LearnView() {
         </ChipGroup>
       )}
 
-      <div className="grid gap-14 md:grid-cols-12 md:gap-x-12">
+      <div className="grid grid-cols-1 gap-14 md:grid-cols-12 md:gap-x-12">
         <div className="md:col-span-5">
           <Section label={subject ? subject.name : "Concepts"} aside={plural(list.length, "concept")}>
             <ul className="border-t border-line">

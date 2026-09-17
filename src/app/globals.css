@@ -84,73 +84,154 @@
 }
 
 @layer components {
-  /* --- Ambient layer: two soft lights and a whisper of grain. No colour. --- */
+  /* --- Ambient layer -----------------------------------------------------
+     What the glass refracts. Two soft lights and two muted blooms (a cool
+     slate, a warm sand), far too desaturated to read as colour, plus a
+     whisper of grain. Everything translucent above picks this up. --- */
   .ambient {
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
     background:
-      radial-gradient(60% 45% at 18% -5%, rgb(255 255 255 / 0.06) 0%, transparent 70%),
-      radial-gradient(45% 40% at 90% 10%, rgb(255 255 255 / 0.035) 0%, transparent 70%),
+      radial-gradient(60% 45% at 12% -8%, rgb(255 255 255 / 0.13) 0%, transparent 65%),
+      radial-gradient(45% 40% at 88% 4%, rgb(150 168 196 / 0.16) 0%, transparent 65%),
+      radial-gradient(50% 45% at 78% 92%, rgb(196 176 152 / 0.09) 0%, transparent 65%),
+      radial-gradient(35% 30% at 25% 70%, rgb(255 255 255 / 0.04) 0%, transparent 65%),
       var(--color-bg);
   }
   .ambient::after {
     content: "";
     position: absolute;
     inset: 0;
-    opacity: 0.035;
+    opacity: 0.05;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size: 160px 160px;
     mix-blend-mode: screen;
   }
+  /* A soft light placed behind a glass object so its blur has something to do. */
+  .light-orb {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgb(255 255 255 / 0.22) 0%, rgb(255 255 255 / 0.06) 40%, transparent 70%);
+    filter: blur(28px);
+  }
 
-  /* --- Material system --- */
+  /* --- Material system ---------------------------------------------------
+     background → ambient → glass navigation → glass surface → glass panel
+     → floating glass. Translucency + blur + saturation give the body; a
+     specular top light and a lit edge give the material its shape. --- */
+  .glass,
+  .glass-panel,
+  .glass-float,
+  .glass-nav {
+    -webkit-backdrop-filter: blur(36px) saturate(190%);
+    backdrop-filter: blur(36px) saturate(190%);
+  }
+  /* Interactive glass: chips, secondary buttons, option rows. */
   .glass {
-    background: rgb(16 16 18 / 0.62);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
-    backdrop-filter: blur(24px) saturate(160%);
-    border: 1px solid rgb(255 255 255 / 0.08);
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.09) 0%, rgb(255 255 255 / 0) 55%),
+      linear-gradient(135deg, rgb(255 255 255 / 0.1) 0%, rgb(255 255 255 / 0.05) 100%);
+    border: 1px solid rgb(255 255 255 / 0.12);
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.06),
-      0 24px 60px -32px rgb(0 0 0 / 0.9);
+      inset 0 1px 0 rgb(255 255 255 / 0.18),
+      inset 0 -1px 0 rgb(0 0 0 / 0.2),
+      0 12px 32px -18px rgb(0 0 0 / 0.7);
+  }
+  /* Resting glass panel: a card that holds content. */
+  .glass-panel {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.08) 0%, rgb(255 255 255 / 0) 40%),
+      linear-gradient(160deg, rgb(255 255 255 / 0.075) 0%, rgb(255 255 255 / 0.035) 60%, rgb(255 255 255 / 0.05) 100%);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    border-top-color: rgb(255 255 255 / 0.18);
+    border-radius: var(--radius-xl);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.14),
+      inset 0 -1px 0 rgb(0 0 0 / 0.25),
+      0 30px 70px -36px rgb(0 0 0 / 0.9);
+  }
+  /* Floating glass: composer, sheets, the mobile navigation. Denser so it stays legible over anything. */
+  .glass-float {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.1) 0%, rgb(255 255 255 / 0) 45%),
+      linear-gradient(160deg, rgb(42 42 46 / 0.72) 0%, rgb(24 24 27 / 0.72) 100%);
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-top-color: rgb(255 255 255 / 0.24);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.16),
+      inset 0 -1px 0 rgb(0 0 0 / 0.3),
+      0 40px 90px -30px rgb(0 0 0 / 0.95),
+      0 2px 8px rgb(0 0 0 / 0.35);
   }
   .glass-nav {
-    background: rgb(8 8 9 / 0.66);
-    -webkit-backdrop-filter: blur(22px) saturate(160%);
-    backdrop-filter: blur(22px) saturate(160%);
-    box-shadow: inset 0 -1px 0 rgb(255 255 255 / 0.06);
+    background: linear-gradient(180deg, rgb(20 20 22 / 0.7) 0%, rgb(12 12 13 / 0.62) 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
+      inset 0 -1px 0 rgb(255 255 255 / 0.07),
+      0 18px 40px -30px rgb(0 0 0 / 0.9);
   }
+  /* Aliases kept for the earlier names. */
   .surface {
-    background: rgb(255 255 255 / 0.035);
-    border: 1px solid rgb(255 255 255 / 0.06);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.06) 0%, rgb(255 255 255 / 0) 45%),
+      rgb(255 255 255 / 0.04);
+    border: 1px solid rgb(255 255 255 / 0.08);
+    border-top-color: rgb(255 255 255 / 0.14);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1);
     border-radius: var(--radius-lg);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
   }
   .surface-2 {
-    background: rgb(255 255 255 / 0.06);
-    border: 1px solid rgb(255 255 255 / 0.08);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+    background: rgb(255 255 255 / 0.07);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1);
     border-radius: var(--radius-lg);
   }
   .float {
-    background: rgb(18 18 20 / 0.78);
-    -webkit-backdrop-filter: blur(28px) saturate(170%);
-    backdrop-filter: blur(28px) saturate(170%);
-    border: 1px solid rgb(255 255 255 / 0.1);
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.1) 0%, rgb(255 255 255 / 0) 45%),
+      linear-gradient(160deg, rgb(42 42 46 / 0.72) 0%, rgb(24 24 27 / 0.72) 100%);
+    -webkit-backdrop-filter: blur(36px) saturate(190%);
+    backdrop-filter: blur(36px) saturate(190%);
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-top-color: rgb(255 255 255 / 0.24);
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.08),
-      0 30px 80px -30px rgb(0 0 0 / 0.95);
+      inset 0 1px 0 rgb(255 255 255 / 0.16),
+      inset 0 -1px 0 rgb(0 0 0 / 0.3),
+      0 40px 90px -30px rgb(0 0 0 / 0.95),
+      0 2px 8px rgb(0 0 0 / 0.35);
   }
+  /* The flashcard: thick glass with a specular sweep and a real edge. */
   .card-3d {
     background:
-      linear-gradient(160deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02) 45%, rgb(255 255 255 / 0.04)),
-      var(--color-surface);
-    border: 1px solid rgb(255 255 255 / 0.1);
+      linear-gradient(180deg, rgb(255 255 255 / 0.14) 0%, rgb(255 255 255 / 0) 38%),
+      linear-gradient(125deg, rgb(255 255 255 / 0.12) 0%, rgb(255 255 255 / 0.04) 45%, rgb(255 255 255 / 0.08) 100%),
+      rgb(28 28 31 / 0.55);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-top-color: rgb(255 255 255 / 0.32);
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.1),
-      0 40px 100px -40px rgb(0 0 0 / 0.95),
-      0 2px 6px rgb(0 0 0 / 0.4);
+      inset 0 1px 0 rgb(255 255 255 / 0.22),
+      inset 0 -1px 0 rgb(0 0 0 / 0.35),
+      inset 1px 0 0 rgb(255 255 255 / 0.06),
+      0 50px 110px -40px rgb(0 0 0 / 0.95),
+      0 3px 10px rgb(0 0 0 / 0.4);
+  }
+  /* Hover: the glass catches a little more light. */
+  .glass-hover {
+    transition: background-color 0.35s, border-color 0.35s, box-shadow 0.35s;
+  }
+  .glass-hover:hover {
+    border-color: rgb(255 255 255 / 0.2);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.24),
+      inset 0 -1px 0 rgb(0 0 0 / 0.2),
+      0 18px 40px -20px rgb(0 0 0 / 0.8);
   }
 
   /* --- Type --- */

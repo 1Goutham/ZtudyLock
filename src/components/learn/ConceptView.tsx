@@ -40,7 +40,7 @@ export function ConceptView({ conceptId }: { conceptId: string }) {
   }
 
   return (
-    <div className="grid gap-12 md:grid-cols-12 md:gap-x-12">
+    <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-x-12">
       {/* Concept */}
       <div className="md:col-span-4">
         <nav className="mb-6 flex items-center gap-2 text-[12.5px] text-ink-3 animate-fade" aria-label="Breadcrumb">
@@ -58,7 +58,7 @@ export function ConceptView({ conceptId }: { conceptId: string }) {
           </blockquote>
         )}
 
-        <div className="mt-8 animate-rise" style={{ "--i": 4 } as React.CSSProperties}>
+        <div className="glass-panel mt-8 animate-rise p-5" style={{ "--i": 4 } as React.CSSProperties}>
           <div className="flex items-baseline justify-between">
             <p className="label">Mastery</p>
             <p className="mono text-[11px] text-ink-3">{mastery.score === null ? statusLabel(mastery.status) : `${mastery.score}% · ${statusLabel(mastery.status)}`}</p>

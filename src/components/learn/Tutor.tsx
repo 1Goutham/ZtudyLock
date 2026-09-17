@@ -91,7 +91,7 @@ export function Tutor({ subject, concept, placeholder, className }: { subject: S
             <div key={m.id} className="animate-rise">
               <Markdown>{m.content}</Markdown>
               {m.checkQuestion && m.id === lastTutor?.id && !busy && (
-                <div className="mt-5 surface px-5 py-4">
+                <div className="glass-panel mt-5 px-5 py-4">
                   <p className="label mb-2">Quick check</p>
                   <p className="text-[15px] text-ink">{m.checkQuestion}</p>
                   <div className="mt-3">
@@ -126,7 +126,7 @@ export function Tutor({ subject, concept, placeholder, className }: { subject: S
 
       {/* Composer: floating glass bar. */}
       <div className="sticky bottom-20 z-10 mt-auto pt-10 md:bottom-6">
-        <div className="float rounded-[24px] p-2">
+        <div className="glass-float rounded-[26px] p-2">
           <div className="flex flex-wrap gap-x-1 gap-y-0 px-2 pt-1">
             {TUTOR_INTENTS.map((i) => (
               <TextAction key={i.key} onClick={() => send(input, i.key)} disabled={!!busy} className="text-[12px]">

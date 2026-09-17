@@ -95,7 +95,7 @@ export function ExamMode({ initialSubjectId }: { initialSubjectId: string | null
           action={<Button variant="primary" onClick={() => analyse(subject)}>Analyse papers</Button>}
         />
       ) : (
-        <div className="grid gap-14 md:grid-cols-12 md:gap-x-12">
+        <div className="grid grid-cols-1 gap-14 md:grid-cols-12 md:gap-x-12">
           <div className="flex flex-col gap-14 md:col-span-7">
             <div className="animate-rise">
               <p className="max-w-xl text-[19px] leading-snug text-ink md:text-[22px]">{insight.summary}</p>
@@ -146,7 +146,8 @@ export function ExamMode({ initialSubjectId }: { initialSubjectId: string | null
               </Section>
             )}
 
-            <div className="surface p-6">
+            <div className="glass-panel relative overflow-hidden p-7">
+              <div className="light-orb -right-16 -top-16 size-56" aria-hidden="true" />
               <p className="label">Mock test</p>
               <p className="mt-3 text-[15px] leading-relaxed text-ink-2">Ten questions weighted toward the topics these papers ask about most, drawn from your material. Explanations at the end.</p>
               <LinkButton href={`/practice/mock?subject=${subject.id}&exam=1`} variant="primary" className="mt-5">Generate mock test</LinkButton>

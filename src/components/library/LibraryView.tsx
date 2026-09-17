@@ -40,7 +40,7 @@ export function LibraryView() {
       {adding && (
         <form
           onSubmit={(e) => { e.preventDefault(); create(true); }}
-          className="mb-14 grid gap-6 border-t border-line pt-6 animate-rise md:grid-cols-12"
+          className="mb-14 grid grid-cols-1 gap-6 border-t border-line pt-6 animate-rise md:grid-cols-12"
         >
           <div className="md:col-span-4">
             <p className="text-[17px] text-ink">New subject</p>
@@ -72,7 +72,7 @@ export function LibraryView() {
               const m = subjectMastery(s.id, concepts, attempts);
               return (
                 <li key={s.id} className="border-b border-line animate-rise" style={{ "--i": i + 1 } as React.CSSProperties}>
-                  <Link href={`/library/${s.id}`} className="group grid gap-4 py-6 md:grid-cols-12 md:items-center">
+                  <Link href={`/library/${s.id}`} className="group grid grid-cols-1 gap-4 py-6 md:grid-cols-12 md:items-center">
                     <div className="flex items-baseline gap-5 md:col-span-6">
                       <span className="label shrink-0">{String(i + 1).padStart(2, "0")}</span>
                       <span>
